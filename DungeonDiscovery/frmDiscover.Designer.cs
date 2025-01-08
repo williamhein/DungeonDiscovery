@@ -121,7 +121,7 @@
             this.rdbStrokeCreate.Location = new System.Drawing.Point(127, 23);
             this.rdbStrokeCreate.Margin = new System.Windows.Forms.Padding(4);
             this.rdbStrokeCreate.Name = "rdbStrokeCreate";
-            this.rdbStrokeCreate.Size = new System.Drawing.Size(70, 21);
+            this.rdbStrokeCreate.Size = new System.Drawing.Size(67, 20);
             this.rdbStrokeCreate.TabIndex = 2;
             this.rdbStrokeCreate.Text = "Stroke";
             this.rdbStrokeCreate.UseVisualStyleBackColor = true;
@@ -133,7 +133,7 @@
             this.rdbRectCreate.Location = new System.Drawing.Point(8, 23);
             this.rdbRectCreate.Margin = new System.Windows.Forms.Padding(4);
             this.rdbRectCreate.Name = "rdbRectCreate";
-            this.rdbRectCreate.Size = new System.Drawing.Size(93, 21);
+            this.rdbRectCreate.Size = new System.Drawing.Size(90, 20);
             this.rdbRectCreate.TabIndex = 1;
             this.rdbRectCreate.TabStop = true;
             this.rdbRectCreate.Text = "Rectangle";
@@ -209,7 +209,7 @@
             this.rdbStartCreate.Location = new System.Drawing.Point(229, 22);
             this.rdbStartCreate.Margin = new System.Windows.Forms.Padding(4);
             this.rdbStartCreate.Name = "rdbStartCreate";
-            this.rdbStartCreate.Size = new System.Drawing.Size(107, 21);
+            this.rdbStartCreate.Size = new System.Drawing.Size(102, 20);
             this.rdbStartCreate.TabIndex = 3;
             this.rdbStartCreate.Text = "Start Rooms";
             this.rdbStartCreate.UseVisualStyleBackColor = true;
@@ -220,7 +220,7 @@
             this.rdbDoorCreate.Location = new System.Drawing.Point(8, 22);
             this.rdbDoorCreate.Margin = new System.Windows.Forms.Padding(4);
             this.rdbDoorCreate.Name = "rdbDoorCreate";
-            this.rdbDoorCreate.Size = new System.Drawing.Size(67, 21);
+            this.rdbDoorCreate.Size = new System.Drawing.Size(65, 20);
             this.rdbDoorCreate.TabIndex = 0;
             this.rdbDoorCreate.Text = "Doors";
             this.rdbDoorCreate.UseVisualStyleBackColor = true;
@@ -231,7 +231,7 @@
             this.rdbEraseCreate.Location = new System.Drawing.Point(164, 22);
             this.rdbEraseCreate.Margin = new System.Windows.Forms.Padding(4);
             this.rdbEraseCreate.Name = "rdbEraseCreate";
-            this.rdbEraseCreate.Size = new System.Drawing.Size(66, 21);
+            this.rdbEraseCreate.Size = new System.Drawing.Size(64, 20);
             this.rdbEraseCreate.TabIndex = 2;
             this.rdbEraseCreate.Text = "Erase";
             this.rdbEraseCreate.UseVisualStyleBackColor = true;
@@ -243,7 +243,7 @@
             this.rdbRoomCreate.Location = new System.Drawing.Point(83, 22);
             this.rdbRoomCreate.Margin = new System.Windows.Forms.Padding(4);
             this.rdbRoomCreate.Name = "rdbRoomCreate";
-            this.rdbRoomCreate.Size = new System.Drawing.Size(73, 21);
+            this.rdbRoomCreate.Size = new System.Drawing.Size(72, 20);
             this.rdbRoomCreate.TabIndex = 1;
             this.rdbRoomCreate.TabStop = true;
             this.rdbRoomCreate.Text = "Rooms";
@@ -263,6 +263,7 @@
             this.ptbCreate.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.ptbCreate.TabIndex = 0;
             this.ptbCreate.TabStop = false;
+            this.ptbCreate.Click += new System.EventHandler(this.ptbCreate_Click);
             // 
             // pnlDiscover
             // 

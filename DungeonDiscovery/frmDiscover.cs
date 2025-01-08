@@ -38,6 +38,8 @@ namespace DungeonDiscovery
         bool[,] clickableDoorsDiscover;
 
 
+        const int DEFAULT_HEIGHT = 500;
+
         public frmDiscover()
         {
             InitializeComponent();
@@ -99,7 +101,7 @@ namespace DungeonDiscovery
 
             bgImageCreate = new Bitmap(ofdNewCreate.FileName);
 
-            outputCreate = new Bitmap(bgImageCreate.Width,bgImageCreate.Height);
+            outputCreate = new Bitmap(DEFAULT_HEIGHT, DEFAULT_HEIGHT*bgImageCreate.Width/bgImageCreate.Height);
             workingOutputCreate = new LockBitmap(outputCreate);
 
             ptbCreate.BackgroundImage = bgImageCreate;
@@ -206,88 +208,88 @@ namespace DungeonDiscovery
         private void LoadDiscover()
         {
             //assign colored spaces to arrays for doors and rooms, and unclear bitmap fog for start
-            if (ofdOpenDiscover.ShowDialog() == DialogResult.Cancel || ofdOpenPNGDiscover.ShowDialog() == DialogResult.Cancel) return;
-
-            somethingOpenedDiscover = true;
-
-            bgImageDiscover = new Bitmap(ofdOpenPNGDiscover.FileName);
-
-            outputDiscover = new Bitmap(ofdOpenDiscover.FileName);
-
-            if (bgImageDiscover.Size != outputDiscover.Size)
-            {
-                MessageBox.Show("File error: size mismatch. Please select the DDF and associated PNG.");
-                return;
-            }
-
-            doorsDiscover = new bool[bgImageDiscover.Width, bgImageDiscover.Height];
-            roomsDiscover = new bool[bgImageDiscover.Width, bgImageDiscover.Height];
-            discoveredDiscover = new bool[bgImageDiscover.Width, bgImageDiscover.Height];
-            clickableDoorsDiscover = new bool[bgImageDiscover.Width, bgImageDiscover.Height];
-
-            workingOutputDiscover = new LockBitmap(outputDiscover);
-            workingBackgroundDiscover = new LockBitmap(bgImageDiscover);
-
-            workingBackgroundDiscover.LockBits();
-            workingOutputDiscover.LockBits();
-            for (int i = 0; i < outputDiscover.Width; i++)
-                for (int j = 0; j < outputDiscover.Height; j++)
-                {
-                    int r1 = rand.Next(170, 235);
-                    Color c = workingOutputDiscover.GetPixel(i, j);
-                    if (c.R != 0 && workingBackgroundDiscover.GetPixel(i, j).A != 0) doorsDiscover[i, j] = true;
-                    if (c.G != 0 && workingBackgroundDiscover.GetPixel(i, j).A != 0) roomsDiscover[i, j] = true;
-                    if (c.B != 0 && workingBackgroundDiscover.GetPixel(i, j).A != 0)
-                    {
-                        workingOutputDiscover.SetPixel(i, j, Color.FromArgb(0, 0, 0, 0));
-                        discoveredDiscover[i, j] = true;
-                    }
-                    else workingOutputDiscover.SetPixel(i, j, Color.FromArgb(255, r1, r1, r1));
-                }
-            workingOutputDiscover.UnlockBits();
-            workingBackgroundDiscover.UnlockBits();
-
-            for (int i = 0; i < discoveredDiscover.GetLength(0); i++)
-                for (int j = 0; j < discoveredDiscover.GetLength(1); j++)
-                    if (discoveredDiscover[i, j] && (doorsDiscover[i + 1, j] || doorsDiscover[i - 1, j] || doorsDiscover[i, j + 1] || doorsDiscover[i, j - 1]))
-                    {
-                        FloodFill(new Point(i + 1, j), 2);
-                        FloodFill(new Point(i - 1, j), 2);
-                        FloodFill(new Point(i, j + 1), 2);
-                        FloodFill(new Point(i, j - 1), 2);
-                    }
-
-            ptbDiscover.BackgroundImage = bgImageDiscover;
-            ptbDiscover.Image = outputDiscover;
-
-            ptbOverlayDiscover = new PictureBox();
-            ptbOverlayDiscover.BackColor = Color.Transparent;
-            ptbOverlayDiscover.SizeMode = PictureBoxSizeMode.StretchImage;
-            ptbDiscover.Controls.Add(ptbOverlayDiscover);
-            ptbOverlayDiscover.Visible = true;
-            ptbOverlayDiscover.Location = new Point(0,0);
-            ptbOverlayDiscover.Width = ptbDiscover.Width * 2;
-            ptbOverlayDiscover.Height = ptbDiscover.Height;
-            ptbOverlayDiscover.Click += MouseClickDiscover;
-
-            overlayDiscover = new Bitmap(outputDiscover.Width*2,outputDiscover.Height);
-            workingOverlayDiscover = new LockBitmap(overlayDiscover);
-
-            workingOverlayDiscover.LockBits();
-            for (int i = 0; i < overlayDiscover.Width; i++)
-                for (int j = 0; j < overlayDiscover.Height; j++)
-                {
-                    int r0 = rand.Next(50,100);
-                    int r1 = rand.Next(140, 240);
-                    workingOverlayDiscover.SetPixel(i, j, Color.FromArgb(r0, r1, r1, r1));
-                }
-            workingOverlayDiscover.UnlockBits();
-
-            ptbOverlayDiscover.Image = overlayDiscover;
-            ptbOverlayDiscover.BringToFront();
-            ptbOverlayDiscover.Refresh();
-            this.SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
-            tmrAnimationDiscover.Enabled = true;
+            //if (ofdOpenDiscover.ShowDialog() == DialogResult.Cancel || ofdOpenPNGDiscover.ShowDialog() == DialogResult.Cancel) return;
+            //
+            //somethingOpenedDiscover = true;
+            //
+            //bgImageDiscover = new Bitmap(ofdOpenPNGDiscover.FileName);
+            //
+            //outputDiscover = new Bitmap(ofdOpenDiscover.FileName);
+            //
+            //if (bgImageDiscover.Size != outputDiscover.Size)
+            //{
+            //    MessageBox.Show("File error: size mismatch. Please select the DDF and associated PNG.");
+            //    return;
+            //}
+            //
+            //doorsDiscover = new bool[bgImageDiscover.Width, bgImageDiscover.Height];
+            //roomsDiscover = new bool[bgImageDiscover.Width, bgImageDiscover.Height];
+            //discoveredDiscover = new bool[bgImageDiscover.Width, bgImageDiscover.Height];
+            //clickableDoorsDiscover = new bool[bgImageDiscover.Width, bgImageDiscover.Height];
+            //
+            //workingOutputDiscover = new LockBitmap(outputDiscover);
+            //workingBackgroundDiscover = new LockBitmap(bgImageDiscover);
+            //
+            //workingBackgroundDiscover.LockBits();
+            //workingOutputDiscover.LockBits();
+            //for (int i = 0; i < outputDiscover.Width; i++)
+            //    for (int j = 0; j < outputDiscover.Height; j++)
+            //    {
+            //        int r1 = rand.Next(170, 235);
+            //        Color c = workingOutputDiscover.GetPixel(i, j);
+            //        if (c.R != 0 && workingBackgroundDiscover.GetPixel(i, j).A != 0) doorsDiscover[i, j] = true;
+            //        if (c.G != 0 && workingBackgroundDiscover.GetPixel(i, j).A != 0) roomsDiscover[i, j] = true;
+            //        if (c.B != 0 && workingBackgroundDiscover.GetPixel(i, j).A != 0)
+            //        {
+            //            workingOutputDiscover.SetPixel(i, j, Color.FromArgb(0, 0, 0, 0));
+            //            discoveredDiscover[i, j] = true;
+            //        }
+            //        else workingOutputDiscover.SetPixel(i, j, Color.FromArgb(255, r1, r1, r1));
+            //    }
+            //workingOutputDiscover.UnlockBits();
+            //workingBackgroundDiscover.UnlockBits();
+            //
+            //for (int i = 0; i < discoveredDiscover.GetLength(0); i++)
+            //    for (int j = 0; j < discoveredDiscover.GetLength(1); j++)
+            //        if (discoveredDiscover[i, j] && (doorsDiscover[i + 1, j] || doorsDiscover[i - 1, j] || doorsDiscover[i, j + 1] || doorsDiscover[i, j - 1]))
+            //        {
+            //            FloodFill(new Point(i + 1, j), 2);
+            //            FloodFill(new Point(i - 1, j), 2);
+            //            FloodFill(new Point(i, j + 1), 2);
+            //            FloodFill(new Point(i, j - 1), 2);
+            //        }
+            //
+            //ptbDiscover.BackgroundImage = bgImageDiscover;
+            //ptbDiscover.Image = outputDiscover;
+            //
+            //ptbOverlayDiscover = new PictureBox();
+            //ptbOverlayDiscover.BackColor = Color.Transparent;
+            //ptbOverlayDiscover.SizeMode = PictureBoxSizeMode.StretchImage;
+            //ptbDiscover.Controls.Add(ptbOverlayDiscover);
+            //ptbOverlayDiscover.Visible = true;
+            //ptbOverlayDiscover.Location = new Point(0,0);
+            //ptbOverlayDiscover.Width = ptbDiscover.Width * 2;
+            //ptbOverlayDiscover.Height = ptbDiscover.Height;
+            //ptbOverlayDiscover.Click += MouseClickDiscover;
+            //
+            //overlayDiscover = new Bitmap(outputDiscover.Width*2,outputDiscover.Height);
+            //workingOverlayDiscover = new LockBitmap(overlayDiscover);
+            //
+            //workingOverlayDiscover.LockBits();
+            //for (int i = 0; i < overlayDiscover.Width; i++)
+            //    for (int j = 0; j < overlayDiscover.Height; j++)
+            //    {
+            //        int r0 = rand.Next(50,100);
+            //        int r1 = rand.Next(140, 240);
+            //        workingOverlayDiscover.SetPixel(i, j, Color.FromArgb(r0, r1, r1, r1));
+            //    }
+            //workingOverlayDiscover.UnlockBits();
+            //
+            //ptbOverlayDiscover.Image = overlayDiscover;
+            //ptbOverlayDiscover.BringToFront();
+            //ptbOverlayDiscover.Refresh();
+            //this.SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
+            //tmrAnimationDiscover.Enabled = true;
         }
         private void tmrAnimationDiscover_Tick(object sender, EventArgs e)
         {
@@ -427,6 +429,11 @@ namespace DungeonDiscovery
         }
 
         private void ofdOpenPNGCreate_FileOk(object sender, CancelEventArgs e)
+        {
+
+        }
+
+        private void ptbCreate_Click(object sender, EventArgs e)
         {
 
         }
